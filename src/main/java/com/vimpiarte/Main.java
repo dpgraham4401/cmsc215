@@ -1,4 +1,4 @@
-package org.vimpiarte;
+package com.vimpiarte;
 
 public class Main {
     public static void main(String[] args) {
