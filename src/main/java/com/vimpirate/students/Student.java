@@ -57,6 +57,10 @@ public class Student {
         gpaThreshold = threshold;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Name: " + name + ", GPA: " + String.format("%.2f", gpa());
