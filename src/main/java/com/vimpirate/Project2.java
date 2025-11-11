@@ -38,13 +38,18 @@ public class Project2 {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         ArrayList<Student> students = new ArrayList<>();
         double totalGpa = 0.0;
 
+        File file = new File("students.txt");
+        if (!file.exists()) {
+            System.out.println("File Not Found");
+            throw new FileNotFoundException("students.txt (no such file or directory)");
+        }
+
         try {
-            Scanner scanner = new Scanner(new File("students.txt"));
-            // ToDo(David): test that the file exists, else print "File Not Found" and exit.
+            Scanner scanner = new Scanner(file);
 
             while (scanner.hasNext()) {
                 String name = scanner.next();
