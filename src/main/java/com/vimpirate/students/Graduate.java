@@ -10,12 +10,7 @@
 package com.vimpirate.students;
 
 public class Graduate extends Student {
-    public enum Degree {
-        MASTERS,
-        DOCTORATE
-    }
-
-    private Degree degree;
+    private final Degree degree;
 
     public Graduate(String name, int creditHours, int qualityPoints, Degree degree) {
         super(name, creditHours, qualityPoints);
@@ -35,6 +30,11 @@ public class Graduate extends Student {
      */
     @Override
     public String toString() {
-        return String.format("Graduate Student: %s, GPA: %.2f, Degree: %s", getName(), gpa(), degree);
+        return String.format("%s, GPA: %.2f, Degree: %s", getName(), gpa(), degree);
+    }
+
+    public enum Degree {
+        MASTERS,
+        DOCTORATE
     }
 }
