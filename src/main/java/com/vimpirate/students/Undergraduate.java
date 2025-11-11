@@ -1,5 +1,9 @@
 /**
  * Undergraduate is a subclass of Student.
+ *
+ * @author David Graham
+ * date: 2025-11-11
+ * CMSC 215 - Project 2
  * <p>
  * It has an additional instance variable that specifies the student’s year as either a freshman, sophomore, junior or senior.
  * At a minimum, it should have the following methods:

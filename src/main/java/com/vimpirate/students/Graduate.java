@@ -1,4 +1,10 @@
 /**
+ * Graduate class
+ *
+ * @author David Graham
+ * date: 2025-11-11
+ * CMSC 215 - Project 2
+ * <p>
  * Graduate. It has an additional instance variable that reflects whether the student is pursuing a master’s degree or doctorate.
  * At a minimum, it should have the following methods:
  * 1. A constructor that allows the student’s name, credit hours, quality points and degree sought to be initialized

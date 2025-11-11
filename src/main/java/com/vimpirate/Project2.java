@@ -2,6 +2,7 @@
  * CMSC 215 - Project 2
  *
  * @author David Graham
+ * date: 2025-11-11
  * <p>
  * The second programming project involves writing a program that produces a list of students who
  * are eligible for membership in an honor society. This program consists of four classes.
