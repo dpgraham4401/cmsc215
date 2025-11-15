@@ -2,7 +2,16 @@ package com.vimpirate;
 
 import java.util.Scanner;
 
+/**
+ * Chapter 13, Exercise 4.
+ * CMSC 215.
+ * @author David Graham
+ */
 public class Exercise {
+
+    /**
+     * The main entrypoint for calculating h and k of a parabola.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a,b,c: ");
@@ -28,38 +37,13 @@ public class Exercise {
         }
 
         // h = -b / (2a)
-        long hNum = - (long)b;
-        long hDen = 2L * a;
-        String hStr = toReducedRational(hNum, hDen);
+        Rational h = new Rational(-b, 2L * a);
 
         // k = (4ac - b^2) / (4a)
-        long kNum = 4L * a * c - (long)b * b;
+        long kNum = 4L * a * c - (long) b * b;
         long kDen = 4L * a;
-        String kStr = toReducedRational(kNum, kDen);
+        Rational k = new Rational(kNum, kDen);
 
-        System.out.println("h is " + hStr + " k is " + kStr);
-    }
-
-    private static String toReducedRational(long num, long den) {
-        if (den == 0) return "undefined";
-        // normalize sign to denominator positive
-        if (den < 0) {
-            den = -den;
-            num = -num;
-        }
-        long g = gcd(Math.abs(num), Math.abs(den));
-        num /= g;
-        den /= g;
-        if (den == 1) return Long.toString(num);
-        return num + "/" + den;
-    }
-
-    private static long gcd(long x, long y) {
-        while (y != 0) {
-            long t = x % y;
-            x = y;
-            y = t;
-        }
-        return x == 0 ? 1 : x;
+        System.out.println("h is " + h + " k is " + k);
     }
 }
