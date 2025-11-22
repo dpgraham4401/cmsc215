@@ -16,9 +16,9 @@ public final class TripCost {
     public static final double KILOMETERS_PER_MILE = 1.609347;
     public static final double LITERS_PER_GALLON = 3.78541178;
 
-    private final double distanceMiles;        // always stored in miles
-    private final double gasCostPerGallon;     // always stored in dollars per gallon
-    private final double mileageMpg;           // always stored in miles per gallon
+    private final double distanceMiles;
+    private final double gasCostPerGallon;
+    private final double mileageMpg;
     private final int numDays;
     private final double hotelCost;
     private final double foodCost;

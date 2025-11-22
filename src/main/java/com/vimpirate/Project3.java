@@ -1,7 +1,7 @@
 /**
  * Project3
  * Author: Your Name
- * Date: 2025-02-01
+ * Date: 2025-11-21
  * <p>
  * Purpose:
  *     GUI program that allows a user to estimate total road trip cost using
@@ -52,10 +52,14 @@ public class Project3 extends JFrame {
 
         JButton calcButton = new JButton("Calculate");
         calcButton.addActionListener(e -> calculate());
+        add(new JLabel("")); // Empty column 1
         add(calcButton);
+        add(new JLabel("")); // Empty column 3
+
+        add(new JLabel("Total Trip Cost:"));
         outputField.setEditable(false);
-        add(new JLabel("Total Trip Cost"));
         add(outputField);
+        add(new JLabel(""));
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 350);
