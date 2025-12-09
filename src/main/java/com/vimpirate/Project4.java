@@ -14,6 +14,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+ * A GUI application to compare time intervals.
+ *
+ * @author David Graham
+ */
 public class Project4 extends Application {
 
     private final TextField interval1StartField = new TextField("10:30 AM");
@@ -22,7 +27,8 @@ public class Project4 extends Application {
     private final TextField interval2EndField = new TextField("1:00 PM");
 
     private final TextField checkTimeField = new TextField("");
-    private final Label resultLabel = new Label("");
+
+    private final TextField outputField = new TextField("");
 
     @Override
     public void start(Stage primaryStage) {
@@ -34,13 +40,9 @@ public class Project4 extends Application {
         grid.setVgap(12);
         grid.setPadding(new Insets(20));
 
-        // Column sizing (matches screenshot proportions)
-        ColumnConstraints col0 = new ColumnConstraints();
-        col0.setPrefWidth(120);
-        ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPrefWidth(150);
-        ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPrefWidth(150);
+        ColumnConstraints col0 = new ColumnConstraints(130);
+        ColumnConstraints col1 = new ColumnConstraints(150);
+        ColumnConstraints col2 = new ColumnConstraints(150);
         grid.getColumnConstraints().addAll(col0, col1, col2);
 
         // Headings
@@ -52,17 +54,17 @@ public class Project4 extends Application {
         grid.add(startHeading, 1, 0);
         grid.add(endHeading, 2, 0);
 
-        // Interval 1 row
+        // Interval 1
         grid.add(new Label("Time Interval 1"), 0, 1);
         grid.add(interval1StartField, 1, 1);
         grid.add(interval1EndField, 2, 1);
 
-        // Interval 2 row
+        // Interval 2
         grid.add(new Label("Time Interval 2"), 0, 2);
         grid.add(interval2StartField, 1, 2);
         grid.add(interval2EndField, 2, 2);
 
-        // Compare button (centered full width)
+        // Compare button
         Button compareButton = new Button("Compare Intervals");
         compareButton.setPrefWidth(300);
         compareButton.setOnAction(this::handleCompareIntervals);
@@ -71,7 +73,7 @@ public class Project4 extends Application {
         compareBox.setAlignment(Pos.CENTER);
         grid.add(compareBox, 0, 3, 3, 1);
 
-        // Time to check row
+        // Time to check
         grid.add(new Label("Time to Check"), 0, 4);
         grid.add(checkTimeField, 1, 4, 2, 1);
 
@@ -84,9 +86,11 @@ public class Project4 extends Application {
         checkBox.setAlignment(Pos.CENTER);
         grid.add(checkBox, 0, 5, 3, 1);
 
-        // Result label at bottom
-        resultLabel.setFont(Font.font(14));
-        grid.add(resultLabel, 0, 6, 3, 1);
+        // Output text box (non-editable)
+        outputField.setEditable(false);
+        outputField.setFont(Font.font(14));
+
+        grid.add(outputField, 0, 6, 3, 1);
 
         Scene scene = new Scene(grid, 500, 350);
         primaryStage.setScene(scene);
@@ -108,10 +112,10 @@ public class Project4 extends Application {
             } else {
                 message = "The intervals are disjoint";
             }
-            resultLabel.setText(message);
+            outputField.setText(message);
 
         } catch (InvalidTime e) {
-            resultLabel.setText("Error: " + e.getMessage());
+            outputField.setText("Error: " + e.getMessage());
         }
     }
 
@@ -135,10 +139,10 @@ public class Project4 extends Application {
                 message = "Neither interval contains the time " + timeToCheck;
             }
 
-            resultLabel.setText(message);
+            outputField.setText(message);
 
         } catch (InvalidTime e) {
-            resultLabel.setText("Error: " + e.getMessage());
+            outputField.setText("Error: " + e.getMessage());
         }
     }
 
