@@ -5,72 +5,90 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-/**
- * A GUI application to compare time intervals using JavaFX.
- *
- * @author Gemini
- * @version 2025-12-09
- */
 public class Project4 extends Application {
 
-    // GUI Components
-    private final TextField interval1StartField = new TextField("09:00 AM");
-    private final TextField interval1EndField = new TextField("05:00 PM");
-    private final TextField interval2StartField = new TextField("11:00 AM");
-    private final TextField interval2EndField = new TextField("01:00 PM");
-    private final TextField checkTimeField = new TextField("12:00 PM");
+    private final TextField interval1StartField = new TextField("10:30 AM");
+    private final TextField interval1EndField = new TextField("12:30 PM");
+    private final TextField interval2StartField = new TextField("11:05 AM");
+    private final TextField interval2EndField = new TextField("1:00 PM");
 
-    /**
-     * The main entry point for all JavaFX applications.
-     *
-     * @param primaryStage the primary stage for this application.
-     */
+    private final TextField checkTimeField = new TextField("");
+    private final Label resultLabel = new Label("");
+
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Time Interval Tester");
+        primaryStage.setTitle("Time Interval Checker");
 
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setAlignment(Pos.TOP_CENTER);
+        grid.setHgap(12);
+        grid.setVgap(12);
+        grid.setPadding(new Insets(20));
 
-        // Interval 1
-        grid.add(new Label("Interval 1:"), 0, 0);
-        grid.add(interval1StartField, 1, 0);
-        grid.add(new Label("to"), 2, 0);
-        grid.add(interval1EndField, 3, 0);
+        // Column sizing (matches screenshot proportions)
+        ColumnConstraints col0 = new ColumnConstraints();
+        col0.setPrefWidth(120);
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPrefWidth(150);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPrefWidth(150);
+        grid.getColumnConstraints().addAll(col0, col1, col2);
 
-        // Interval 2
-        grid.add(new Label("Interval 2:"), 0, 1);
-        grid.add(interval2StartField, 1, 1);
-        grid.add(new Label("to"), 2, 1);
-        grid.add(interval2EndField, 3, 1);
+        // Headings
+        Label startHeading = new Label("Start Time");
+        Label endHeading = new Label("End Time");
+        startHeading.setFont(Font.font(14));
+        endHeading.setFont(Font.font(14));
 
-        // Check Time
-        grid.add(new Label("Check Time:"), 0, 2);
-        grid.add(checkTimeField, 1, 2, 3, 1);
+        grid.add(startHeading, 1, 0);
+        grid.add(endHeading, 2, 0);
 
-        // Buttons
+        // Interval 1 row
+        grid.add(new Label("Time Interval 1"), 0, 1);
+        grid.add(interval1StartField, 1, 1);
+        grid.add(interval1EndField, 2, 1);
+
+        // Interval 2 row
+        grid.add(new Label("Time Interval 2"), 0, 2);
+        grid.add(interval2StartField, 1, 2);
+        grid.add(interval2EndField, 2, 2);
+
+        // Compare button (centered full width)
         Button compareButton = new Button("Compare Intervals");
-        Button checkTimeButton = new Button("Check Time");
+        compareButton.setPrefWidth(300);
         compareButton.setOnAction(this::handleCompareIntervals);
+
+        HBox compareBox = new HBox(compareButton);
+        compareBox.setAlignment(Pos.CENTER);
+        grid.add(compareBox, 0, 3, 3, 1);
+
+        // Time to check row
+        grid.add(new Label("Time to Check"), 0, 4);
+        grid.add(checkTimeField, 1, 4, 2, 1);
+
+        // Check time button
+        Button checkTimeButton = new Button("Check Time");
+        checkTimeButton.setPrefWidth(300);
         checkTimeButton.setOnAction(this::handleCheckTime);
 
-        HBox buttonBox = new HBox(10);
-        buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.getChildren().addAll(compareButton, checkTimeButton);
-        grid.add(buttonBox, 0, 3, 4, 1);
+        HBox checkBox = new HBox(checkTimeButton);
+        checkBox.setAlignment(Pos.CENTER);
+        grid.add(checkBox, 0, 5, 3, 1);
 
-        Scene scene = new Scene(grid);
+        // Result label at bottom
+        resultLabel.setFont(Font.font(14));
+        grid.add(resultLabel, 0, 6, 3, 1);
+
+        Scene scene = new Scene(grid, 500, 350);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -90,9 +108,10 @@ public class Project4 extends Application {
             } else {
                 message = "The intervals are disjoint";
             }
-            showAlert(Alert.AlertType.INFORMATION, "Comparison Result", message);
+            resultLabel.setText(message);
+
         } catch (InvalidTime e) {
-            showAlert(Alert.AlertType.ERROR, "Invalid Time", "Error: " + e.getMessage());
+            resultLabel.setText("Error: " + e.getMessage());
         }
     }
 
@@ -115,31 +134,18 @@ public class Project4 extends Application {
             } else {
                 message = "Neither interval contains the time " + timeToCheck;
             }
-            showAlert(Alert.AlertType.INFORMATION, "Time Check Result", message);
+
+            resultLabel.setText(message);
+
         } catch (InvalidTime e) {
-            showAlert(Alert.AlertType.ERROR, "Invalid Time", "Error: " + e.getMessage());
+            resultLabel.setText("Error: " + e.getMessage());
         }
     }
 
     private Interval<Time> getInterval(TextField startField, TextField endField) throws InvalidTime {
-        Time startTime = new Time(startField.getText());
-        Time endTime = new Time(endField.getText());
-        return new Interval<>(startTime, endTime);
+        return new Interval<>(new Time(startField.getText()), new Time(endField.getText()));
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    /**
-     * The main method.
-     *
-     * @param args Command line arguments (not used).
-     */
     public static void main(String[] args) {
         launch(args);
     }
