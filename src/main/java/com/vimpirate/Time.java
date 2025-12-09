@@ -3,9 +3,8 @@ package com.vimpirate;
 import java.util.Objects;
 
 /**
- * A class representing time in HH:MM AM/PM format.
- *
- * @author David Graham
+ * Name: David Graham
+ * Description: A class representing time in HH:MM AM/PM format.
  */
 public class Time implements Comparable<Time> {
 

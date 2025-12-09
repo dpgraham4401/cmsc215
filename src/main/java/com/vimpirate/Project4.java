@@ -15,9 +15,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * A GUI application to compare time intervals.
- *
- * @author David Graham
+ * Name: David Graham
+ * Description: A GUI application to compare time intervals.
  */
 public class Project4 extends Application {
 

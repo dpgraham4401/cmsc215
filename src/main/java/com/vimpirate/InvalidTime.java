@@ -3,9 +3,8 @@ package com.vimpirate;
 import java.io.Serial;
 
 /**
- * A checked exception for invalid time formats.
- *
- * @author David Graham
+ * Name: David Graham
+ * Description: A checked exception for invalid time formats.
  */
 public class InvalidTime extends Exception {
 

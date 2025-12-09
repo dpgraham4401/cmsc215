@@ -1,10 +1,8 @@
 package com.vimpirate;
 
 /**
- * A generic class representing an interval.
- *
- * @param <T> The type of the interval's start and end points.
- * @author David Graham
+ * Name: David Graham
+ * Description: A generic class representing an interval.
  */
 public class Interval<T extends Comparable<T>> {
 
